@@ -18,8 +18,30 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
+import { useRouter } from 'next/router';
 
 const drawerWidth = 240;
+
+const MainMenu = [
+  {
+    name: "Analytics",
+    icon: <AnalyticsIcon />,
+    routes: "/dashboard",
+  },
+  {
+    name: "Courses",
+    icon: <AccountTreeIcon />,
+    routes: "/courses",
+  },
+  {
+    name: "Rules",
+    icon: <AlignHorizontalCenterIcon />,
+    routes: "/rules",
+  },
+];
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -98,6 +120,7 @@ export default function index({children}) {
     setOpen(false);
   };
 
+  const router = useRouter();
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -128,30 +151,38 @@ export default function index({children}) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+        {MainMenu.map((text, index) => (
+            <ListItem
+              onClick={() => router.push(text.routes)}
+              key={index}
+              disablePadding
+              sx={{ display: "block" }}
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
+                  justifyContent: open ? "initial" : "center",
                   px: 2.5,
                 }}
               >
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {text.icon}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText
+                  primary={text.name}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        <Divider />
+        {/* <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
@@ -175,7 +206,7 @@ export default function index({children}) {
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         {children}

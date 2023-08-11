@@ -183,6 +183,7 @@ export default function index({children}) {
           ))}
         </List>
         {/* <Divider />
+        ////
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>

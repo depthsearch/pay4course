@@ -29,7 +29,7 @@ const MainMenu = [
   {
     name: "Analytics",
     icon: <AnalyticsIcon />,
-    routes: "/dashboard",
+    routes: "/analytics",
   },
   {
     name: "Courses",
